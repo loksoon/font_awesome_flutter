@@ -48,24 +48,14 @@ final class FaDuotoneIconData {
       'FaDuotoneIconData(primary: $primary, secondary: $secondary)';
 }
 
-FaIconData iconDataBrands(int codePoint) {
-  return FaIconData(
-    IconData(
-      codePoint,
-      fontFamily: 'FontAwesomeBrands',
-      fontPackage: 'font_awesome_flutter',
-    ),
-  );
-}
-
-final class IconDataSolid implements FaIconData {
+base class _CustomFaIconData implements FaIconData {
   @override
   final int codePoint;
 
-  const IconDataSolid(this.codePoint);
-
   @override
-  String get fontFamily => 'FontAwesomeSolid';
+  final String fontFamily;
+
+  const _CustomFaIconData(this.codePoint, this.fontFamily);
 
   @override
   String get fontPackage => 'font_awesome_flutter';
@@ -85,74 +75,48 @@ final class IconDataSolid implements FaIconData {
 
   @override
   int get hashCode => data.hashCode;
+
+  @override
+  String toString() =>
+      '$runtimeType(codePoint: 0x${codePoint.toRadixString(16)})';
 }
 
-FaIconData iconDataRegular(int codePoint) {
-  return FaIconData(
-    IconData(
-      codePoint,
-      fontFamily: 'FontAwesomeRegular',
-      fontPackage: 'font_awesome_flutter',
-    ),
-  );
+final class IconDataSolid extends _CustomFaIconData {
+  const IconDataSolid(int codePoint) : super(codePoint, 'FontAwesomeSolid');
 }
 
-FaIconData iconDataLight(int codePoint) {
-  return FaIconData(
-    IconData(
-      codePoint,
-      fontFamily: 'FontAwesomeLight',
-      fontPackage: 'font_awesome_flutter',
-    ),
-  );
+final class IconDataBrands extends _CustomFaIconData {
+  const IconDataBrands(int codePoint) : super(codePoint, 'FontAwesomeBrands');
 }
 
-FaIconData iconDataThin(int codePoint) {
-  return FaIconData(
-    IconData(
-      codePoint,
-      fontFamily: 'FontAwesomeThin',
-      fontPackage: 'font_awesome_flutter',
-    ),
-  );
+final class IconDataRegular extends _CustomFaIconData {
+  const IconDataRegular(int codePoint) : super(codePoint, 'FontAwesomeRegular');
 }
 
-FaIconData iconDataSharpThin(int codePoint) {
-  return FaIconData(
-    IconData(
-      codePoint,
-      fontFamily: 'FontAwesomeSharpThin',
-      fontPackage: 'font_awesome_flutter',
-    ),
-  );
+final class IconDataLight extends _CustomFaIconData {
+  const IconDataLight(int codePoint) : super(codePoint, 'FontAwesomeLight');
 }
 
-FaIconData iconDataSharpLight(int codePoint) {
-  return FaIconData(
-    IconData(
-      codePoint,
-      fontFamily: 'FontAwesomeSharpLight',
-      fontPackage: 'font_awesome_flutter',
-    ),
-  );
+final class IconDataThin extends _CustomFaIconData {
+  const IconDataThin(int codePoint) : super(codePoint, 'FontAwesomeThin');
 }
 
-FaIconData iconDataSharpRegular(int codePoint) {
-  return FaIconData(
-    IconData(
-      codePoint,
-      fontFamily: 'FontAwesomeSharpRegular',
-      fontPackage: 'font_awesome_flutter',
-    ),
-  );
+final class IconDataSharpThin extends _CustomFaIconData {
+  const IconDataSharpThin(int codePoint)
+      : super(codePoint, 'FontAwesomeSharpThin');
 }
 
-FaIconData iconDataSharpSolid(int codePoint) {
-  return FaIconData(
-    IconData(
-      codePoint,
-      fontFamily: 'FontAwesomeSharpSolid',
-      fontPackage: 'font_awesome_flutter',
-    ),
-  );
+final class IconDataSharpLight extends _CustomFaIconData {
+  const IconDataSharpLight(int codePoint)
+      : super(codePoint, 'FontAwesomeSharpLight');
+}
+
+final class IconDataSharpRegular extends _CustomFaIconData {
+  const IconDataSharpRegular(int codePoint)
+      : super(codePoint, 'FontAwesomeSharpRegular');
+}
+
+final class IconDataSharpSolid extends _CustomFaIconData {
+  const IconDataSharpSolid(int codePoint)
+      : super(codePoint, 'FontAwesomeSharpSolid');
 }
