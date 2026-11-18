@@ -1,23 +1,30 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:font_awesome_flutter/src/icon_data.dart';
 
-class FaIcon extends StatelessWidget {
+class FaIcon extends Icon {
+  final FaIconData? _icon;
+
+  /// Creates an icon.
   const FaIcon(
-    this.icon, {
-    Key? key,
-    this.size,
-    this.color,
-    this.semanticLabel,
-    this.textDirection,
-  })  : assert(icon != null),
-        super(key: key);
+    FaIconData? icon, {
+    super.key,
+    super.size,
+    super.fill,
+    super.weight,
+    super.grade,
+    super.opticalSize,
+    super.color,
+    super.shadows,
+    super.semanticLabel,
+    super.textDirection,
+    super.applyTextScaling,
+    super.blendMode,
+    super.fontWeight,
+  })  : _icon = icon,
+        super(null);
 
-  final IconData? icon;
-  final double? size;
-  final Color? color;
-  final String? semanticLabel;
-  final TextDirection? textDirection;
+  @override
+  IconData? get icon => _icon?.data;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +33,27 @@ class FaIcon extends StatelessWidget {
         this.textDirection ?? Directionality.of(context);
 
     final IconThemeData iconTheme = IconTheme.of(context);
-    final double? iconSize = size ?? iconTheme.size;
 
+    final bool applyTextScaling =
+        this.applyTextScaling ?? iconTheme.applyTextScaling ?? false;
+
+    final double tentativeIconSize = size ?? iconTheme.size ?? kDefaultFontSize;
+
+    final double iconSize = applyTextScaling
+        ? MediaQuery.textScalerOf(context).scale(tentativeIconSize)
+        : tentativeIconSize;
+
+    final double? iconFill = fill ?? iconTheme.fill;
+
+    final double? iconWeight = weight ?? iconTheme.weight;
+
+    final double? iconGrade = grade ?? iconTheme.grade;
+
+    final double? iconOpticalSize = opticalSize ?? iconTheme.opticalSize;
+
+    final List<Shadow>? iconShadows = shadows ?? iconTheme.shadows;
+
+    final IconData? icon = _icon?.data;
     if (icon == null) {
       return Semantics(
         label: semanticLabel,
@@ -36,36 +62,58 @@ class FaIcon extends StatelessWidget {
     }
 
     final double iconOpacity = iconTheme.opacity ?? 1.0;
-    Color iconColor = color ?? iconTheme.color!;
+    Color? iconColor = color ?? iconTheme.color!;
+    Paint? foreground;
     if (iconOpacity != 1.0) {
       iconColor = iconColor.withValues(alpha: iconColor.a * iconOpacity);
     }
+    if (blendMode != null) {
+      foreground = Paint()
+        ..blendMode = blendMode!
+        ..color = iconColor;
+      iconColor = null;
+    }
+
+    final TextStyle fontStyle = TextStyle(
+      fontVariations: <FontVariation>[
+        if (iconFill != null) FontVariation('FILL', iconFill),
+        if (iconWeight != null) FontVariation('wght', iconWeight),
+        if (iconGrade != null) FontVariation('GRAD', iconGrade),
+        if (iconOpticalSize != null) FontVariation('opsz', iconOpticalSize),
+      ],
+      inherit: false,
+      color: iconColor,
+      fontSize: iconSize,
+      fontFamily: icon.fontFamily,
+      fontWeight: fontWeight,
+      package: icon.fontPackage,
+      fontFamilyFallback: icon.fontFamilyFallback,
+      shadows: iconShadows,
+      height:
+          1.0, 
+      leadingDistribution: TextLeadingDistribution.even,
+      foreground: foreground,
+    );
 
     Widget iconWidget = RichText(
       overflow: TextOverflow.visible,
-      textDirection: textDirection,
+      textDirection:
+          textDirection,
       text: TextSpan(
-        text: String.fromCharCode(icon!.codePoint),
-        style: TextStyle(
-          inherit: false,
-          color: iconColor,
-          fontSize: iconSize,
-          fontFamily: icon!.fontFamily,
-          package: icon!.fontPackage,
-        ),
+        text: String.fromCharCode(icon.codePoint),
+        style: fontStyle,
       ),
     );
 
-    if (icon!.matchTextDirection) {
+    if (icon.matchTextDirection) {
       switch (textDirection) {
         case TextDirection.rtl:
           iconWidget = Transform(
-            transform: Matrix4.diagonal3Values(-1.0, 1.0, 1.0),
+            transform: Matrix4.identity()..scaleByDouble(-1.0, 1.0, 1.0, 1),
             alignment: Alignment.center,
             transformHitTests: false,
             child: iconWidget,
           );
-          break;
         case TextDirection.ltr:
           break;
       }
@@ -73,18 +121,7 @@ class FaIcon extends StatelessWidget {
 
     return Semantics(
       label: semanticLabel,
-      child: ExcludeSemantics(
-        child: iconWidget,
-      ),
+      child: ExcludeSemantics(child: iconWidget),
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(
-        IconDataProperty('icon', icon, ifNull: '<empty>', showName: false));
-    properties.add(DoubleProperty('size', size, defaultValue: null));
-    properties.add(ColorProperty('color', color, defaultValue: null));
   }
 }

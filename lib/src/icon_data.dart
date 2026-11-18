@@ -1,68 +1,139 @@
-library font_awesome_flutter;
-
 import 'package:flutter/widgets.dart';
 
-IconData IconDataBrands(int codePoint) => IconData(
+@immutable
+final class FaIconData {
+  final IconData data;
+  const FaIconData(this.data);
+  int get codePoint => data.codePoint;
+  String? get fontFamily => data.fontFamily;
+  String? get fontPackage => data.fontPackage;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is FaIconData && other.data == data;
+  }
+
+  @override
+  int get hashCode => data.hashCode;
+
+  @override
+  String toString() => 'FaIconData(data: $data)';
+}
+
+@immutable
+final class FaDuotoneIconData {
+  /// The primary layer of the icon.
+  final IconData primary;
+
+  /// The secondary layer of the icon.
+  final IconData secondary;
+
+  /// Creates a duotone icon data.
+  const FaDuotoneIconData({required this.primary, required this.secondary});
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is FaDuotoneIconData &&
+        other.primary == primary &&
+        other.secondary == secondary;
+  }
+
+  @override
+  int get hashCode => Object.hash(primary, secondary);
+
+  @override
+  String toString() =>
+      'FaDuotoneIconData(primary: $primary, secondary: $secondary)';
+}
+
+FaIconData iconDataBrands(int codePoint) {
+  return FaIconData(
+    IconData(
       codePoint,
       fontFamily: 'FontAwesomeBrands',
       fontPackage: 'font_awesome_flutter',
-    );
+    ),
+  );
+}
 
-IconData IconDataSolid(int codePoint) => IconData(
+FaIconData iconDataSolid(int codePoint) {
+  return FaIconData(
+    IconData(
       codePoint,
       fontFamily: 'FontAwesomeSolid',
       fontPackage: 'font_awesome_flutter',
-    );
+    ),
+  );
+}
 
-IconData IconDataRegular(int codePoint) => IconData(
+FaIconData iconDataRegular(int codePoint) {
+  return FaIconData(
+    IconData(
       codePoint,
       fontFamily: 'FontAwesomeRegular',
       fontPackage: 'font_awesome_flutter',
-    );
+    ),
+  );
+}
 
-IconData IconDataLight(int codePoint) => IconData(
+FaIconData iconDataLight(int codePoint) {
+  return FaIconData(
+    IconData(
       codePoint,
       fontFamily: 'FontAwesomeLight',
       fontPackage: 'font_awesome_flutter',
-    );
-
-/// [IconData] for a font awesome duotone icon from a code point.
-class IconDataDuotone {
-  /// Primary glyph code point of the duotone icon
-  final int codePoint;
-
-  /// Secondary glyph of the duotone icon
-  final IconDataDuotone? secondary;
-
-  const IconDataDuotone(this.codePoint, {this.secondary});
+    ),
+  );
 }
 
-IconData IconDataThin(int codePoint) => IconData(
+FaIconData iconDataThin(int codePoint) {
+  return FaIconData(
+    IconData(
       codePoint,
       fontFamily: 'FontAwesomeThin',
       fontPackage: 'font_awesome_flutter',
-    );
+    ),
+  );
+}
 
-IconData IconDataSharpThin(int codePoint) => IconData(
+FaIconData iconDataSharpThin(int codePoint) {
+  return FaIconData(
+    IconData(
       codePoint,
       fontFamily: 'FontAwesomeSharpThin',
       fontPackage: 'font_awesome_flutter',
-    );
+    ),
+  );
+}
 
-IconData IconDataSharpLight(int codePoint) => IconData(
+FaIconData iconDataSharpLight(int codePoint) {
+  return FaIconData(
+    IconData(
       codePoint,
       fontFamily: 'FontAwesomeSharpLight',
       fontPackage: 'font_awesome_flutter',
-    );
+    ),
+  );
+}
 
-IconData IconDataSharpRegular(int codePoint) => IconData(
+FaIconData iconDataSharpRegular(int codePoint) {
+  return FaIconData(
+    IconData(
       codePoint,
       fontFamily: 'FontAwesomeSharpRegular',
       fontPackage: 'font_awesome_flutter',
-    );
+    ),
+  );
+}
 
-IconData IconDataSharpSolid(int codePoint) => IconData(
+FaIconData iconDataSharpSolid(int codePoint) {
+  return FaIconData(
+    IconData(
       codePoint,
       fontFamily: 'FontAwesomeSharpSolid',
       fontPackage: 'font_awesome_flutter',
-    );
+    ),
+  );
+}
