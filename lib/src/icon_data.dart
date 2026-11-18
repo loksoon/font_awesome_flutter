@@ -58,14 +58,33 @@ FaIconData iconDataBrands(int codePoint) {
   );
 }
 
-FaIconData iconDataSolid(int codePoint) {
-  return FaIconData(
-    IconData(
-      codePoint,
-      fontFamily: 'FontAwesomeSolid',
-      fontPackage: 'font_awesome_flutter',
-    ),
-  );
+final class IconDataSolid implements FaIconData {
+  @override
+  final int codePoint;
+
+  const IconDataSolid(this.codePoint);
+
+  @override
+  String get fontFamily => 'FontAwesomeSolid';
+
+  @override
+  String get fontPackage => 'font_awesome_flutter';
+
+  @override
+  IconData get data => IconData(
+        codePoint,
+        fontFamily: fontFamily,
+        fontPackage: fontPackage,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is FaIconData && other.data == data;
+  }
+
+  @override
+  int get hashCode => data.hashCode;
 }
 
 FaIconData iconDataRegular(int codePoint) {
