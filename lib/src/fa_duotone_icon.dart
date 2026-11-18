@@ -26,13 +26,23 @@ class FaDuotoneIcon extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           FaIcon(
-            icon.primary,
+            IconData(
+              icon.codePoint,
+              fontFamily: 'FontAwesomeDuotone',
+              fontPackage: 'font_awesome_flutter',
+            ),
             size: size,
             color: primaryColor,
             key: const Key("primaryGlyph"),
           ),
           FaIcon(
-            icon.secondary,
+            icon.secondary == null
+                ? null
+                : IconData(
+                    icon.secondary!.codePoint,
+                    fontFamily: 'FontAwesomeDuotone',
+                    fontPackage: 'font_awesome_flutter',
+                  ),
             size: size,
             color: secondaryColor,
             key: const Key("secondaryGlyph"),
