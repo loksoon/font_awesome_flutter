@@ -3,119 +3,119 @@ library font_awesome_flutter;
 import 'package:flutter/widgets.dart';
 
 /// [IconData] for a font awesome brand icon from a code point
-extension type const IconDataBrands._(IconData _) implements IconData {
+///
+/// Code points can be obtained from fontawesome.com
+final class IconDataBrands extends IconData {
   const IconDataBrands(int codePoint)
-      : this._(
-          IconData(
-            codePoint,
-            fontFamily: 'FontAwesomeBrands',
-            fontPackage: 'font_awesome_flutter',
-          ),
+      : super(
+          codePoint,
+          fontFamily: 'FontAwesomeBrands',
+          fontPackage: 'font_awesome_flutter',
         );
 }
 
 /// [IconData] for a font awesome solid icon from a code point
-extension type const IconDataSolid._(IconData _) implements IconData {
+///
+/// Code points can be obtained from fontawesome.com
+final class IconDataSolid extends IconData {
   const IconDataSolid(int codePoint)
-      : this._(
-          IconData(
-            codePoint,
-            fontFamily: 'FontAwesomeSolid',
-            fontPackage: 'font_awesome_flutter',
-          ),
+      : super(
+          codePoint,
+          fontFamily: 'FontAwesomeSolid',
+          fontPackage: 'font_awesome_flutter',
         );
 }
 
 /// [IconData] for a font awesome regular icon from a code point
-extension type const IconDataRegular._(IconData _) implements IconData {
+///
+/// Code points can be obtained from fontawesome.com
+final class IconDataRegular extends IconData {
   const IconDataRegular(int codePoint)
-      : this._(
-          IconData(
-            codePoint,
-            fontFamily: 'FontAwesomeRegular',
-            fontPackage: 'font_awesome_flutter',
-          ),
+      : super(
+          codePoint,
+          fontFamily: 'FontAwesomeRegular',
+          fontPackage: 'font_awesome_flutter',
         );
 }
 
-/// [IconData] for a font awesome light icon from a code point.
-extension type const IconDataLight._(IconData _) implements IconData {
+/// [IconData] for a font awesome light icon from a code point. Only works if
+/// light icons (font awesome pro) have been installed.
+///
+/// Code points can be obtained from fontawesome.com
+final class IconDataLight extends IconData {
   const IconDataLight(int codePoint)
-      : this._(
-          IconData(
-            codePoint,
-            fontFamily: 'FontAwesomeLight',
-            fontPackage: 'font_awesome_flutter',
-          ),
+      : super(
+          codePoint,
+          fontFamily: 'FontAwesomeLight',
+          fontPackage: 'font_awesome_flutter',
         );
 }
 
-/// [IconData] for a font awesome duotone icon from a code point.
-/// 由于 extension type 不能包含额外字段，Duotone 改为持有 primary 和 secondary 属性
-class IconDataDuotone {
-  final IconData primary;
-  final Object? secondary;
+/// [IconData] for a font awesome duotone icon from a code point. Only works if
+/// duotone icons (font awesome pro) have been installed.
+///
+/// Code points can be obtained from fontawesome.com. Each duotone icon consists
+/// of a primary [codePoint] and a [secondary].
+final class IconDataDuotone extends IconData {
+  /// Secondary glyph of the duotone icon
+  ///
+  /// Due to tree-shaking restraints [secondary] cannot be the codepoint itself,
+  /// but has to be an [IconData] object.
+  final IconData? secondary;
 
   const IconDataDuotone(int codePoint, {this.secondary})
-      : primary = IconData(
+      : super(
           codePoint,
           fontFamily: 'FontAwesomeDuotone',
           fontPackage: 'font_awesome_flutter',
         );
 }
 
-/// [IconData] for a font awesome thin icon from a code point.
-extension type const IconDataThin._(IconData _) implements IconData {
+/// [IconData] for a font awesome thin icon from a code point. Only works if
+/// thin icons (font awesome pro, v6+) have been installed.
+///
+/// Code points can be obtained from fontawesome.com
+final class IconDataThin extends IconData {
   const IconDataThin(int codePoint)
-      : this._(
-          IconData(
-            codePoint,
-            fontFamily: 'FontAwesomeThin',
-            fontPackage: 'font_awesome_flutter',
-          ),
+      : super(
+          codePoint,
+          fontFamily: 'FontAwesomeThin',
+          fontPackage: 'font_awesome_flutter',
         );
 }
 
-extension type const IconDataSharpThin._(IconData _) implements IconData {
+final class IconDataSharpThin extends IconData {
   const IconDataSharpThin(int codePoint)
-      : this._(
-          IconData(
-            codePoint,
-            fontFamily: 'FontAwesomeSharpThin',
-            fontPackage: 'font_awesome_flutter',
-          ),
+      : super(
+          codePoint,
+          fontFamily: 'FontAwesomeSharpThin',
+          fontPackage: 'font_awesome_flutter',
         );
 }
 
-extension type const IconDataSharpLight._(IconData _) implements IconData {
+final class IconDataSharpLight extends IconData {
   const IconDataSharpLight(int codePoint)
-      : this._(
-          IconData(
-            codePoint,
-            fontFamily: 'FontAwesomeSharpLight',
-            fontPackage: 'font_awesome_flutter',
-          ),
+      : super(
+          codePoint,
+          fontFamily: 'FontAwesomeSharpLight',
+          fontPackage: 'font_awesome_flutter',
         );
 }
 
-extension type const IconDataSharpRegular._(IconData _) implements IconData {
+final class IconDataSharpRegular extends IconData {
   const IconDataSharpRegular(int codePoint)
-      : this._(
-          IconData(
-            codePoint,
-            fontFamily: 'FontAwesomeSharpRegular',
-            fontPackage: 'font_awesome_flutter',
-          ),
+      : super(
+          codePoint,
+          fontFamily: 'FontAwesomeSharpRegular',
+          fontPackage: 'font_awesome_flutter',
         );
 }
 
-extension type const IconDataSharpSolid._(IconData _) implements IconData {
+final class IconDataSharpSolid extends IconData {
   const IconDataSharpSolid(int codePoint)
-      : this._(
-          IconData(
-            codePoint,
-            fontFamily: 'FontAwesomeSharpSolid',
-            fontPackage: 'font_awesome_flutter',
-          ),
+      : super(
+          codePoint,
+          fontFamily: 'FontAwesomeSharpSolid',
+          fontPackage: 'font_awesome_flutter',
         );
 }
