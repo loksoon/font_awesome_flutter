@@ -18,6 +18,7 @@ class FaIconData {
   int get codePoint => data.codePoint;
   String? get fontFamily => data.fontFamily;
   String? get fontPackage => data.fontPackage;
+  List<String>? get fontFamilyFallback => data.fontFamilyFallback;
   bool get matchTextDirection => data.matchTextDirection;
 
   @override
