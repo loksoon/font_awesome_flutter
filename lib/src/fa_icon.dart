@@ -1,27 +1,5 @@
-// Copyright 2014 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/widgets.dart';
-
-/// Creates an Icon Widget that works for non-material Icons, such as the
-/// Font Awesome Icons.
-///
-/// The default [Icon] Widget from the Material package assumes all Icons are
-/// square in size and wraps all Icons in a square SizedBox Widget. Icons from
-/// the FontAwesome package are often wider than they are tall, which causes
-/// alignment and cutoff issues.
-///
-/// This Widget does not wrap the icons in a fixed square box, which allows the
-/// icons to render based on their size.
-///
-/// This is basically a copy of flutter's original `Icon` widget, but with the
-/// `SizedBox` and `Center` widgets removed.
-///
-/// Original source code:
-/// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/icon.dart
 class FaIcon extends Icon {
-  /// Creates an icon.
   const FaIcon(
     super.icon, {
     super.key,
@@ -66,7 +44,7 @@ class FaIcon extends Icon {
 
     final List<Shadow>? iconShadows = shadows ?? iconTheme.shadows;
 
-    final IconData? icon = this.icon;
+    final FaIconData? icon = this.icon;
     if (icon == null) {
       return Semantics(
         label: semanticLabel,
@@ -84,7 +62,6 @@ class FaIcon extends Icon {
       foreground = Paint()
         ..blendMode = blendMode!
         ..color = iconColor;
-      // Cannot provide both a color and a foreground.
       iconColor = null;
     }
 

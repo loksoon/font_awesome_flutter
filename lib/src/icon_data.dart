@@ -1,122 +1,114 @@
 import 'package:flutter/widgets.dart';
 
-/// [IconData] for a font awesome brand icon from a code point
-///
-/// Code points can be obtained from fontawesome.com
-class IconDataBrands extends IconData {
+class FaIconData {
+  const FaIconData(
+    int codePoint, {
+    String? fontFamily,
+    String? fontPackage,
+    bool matchTextDirection = false,
+  }) : data = IconData(
+          codePoint,
+          fontFamily: fontFamily,
+          fontPackage: fontPackage,
+          matchTextDirection: matchTextDirection,
+        );
+
+  final IconData data;
+
+  int get codePoint => data.codePoint;
+  String? get fontFamily => data.fontFamily;
+  String? get fontPackage => data.fontPackage;
+  bool get matchTextDirection => data.matchTextDirection;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FaIconData &&
+          runtimeType == other.runtimeType &&
+          data == other.data;
+
+  @override
+  int get hashCode => data.hashCode;
+}
+
+class IconDataBrands extends FaIconData {
   const IconDataBrands(super.codePoint)
-    : super(
-        fontFamily: 'FontAwesomeBrands',
-        fontPackage: 'font_awesome_flutter',
-      );
+      : super(
+          fontFamily: 'FontAwesomeBrands',
+          fontPackage: 'font_awesome_flutter',
+        );
 }
 
-/// [IconData] for a font awesome solid icon from a code point
-///
-/// Code points can be obtained from fontawesome.com
-class IconDataSolid extends IconData {
+class IconDataSolid extends FaIconData {
   const IconDataSolid(super.codePoint)
-    : super(
-        fontFamily: 'FontAwesomeSolid',
-        fontPackage: 'font_awesome_flutter',
-      );
+      : super(
+          fontFamily: 'FontAwesomeSolid',
+          fontPackage: 'font_awesome_flutter',
+        );
 }
 
-/// [IconData] for a font awesome regular icon from a code point
-///
-/// Code points can be obtained from fontawesome.com
-class IconDataRegular extends IconData {
+class IconDataRegular extends FaIconData {
   const IconDataRegular(super.codePoint)
-    : super(
-        fontFamily: 'FontAwesomeRegular',
-        fontPackage: 'font_awesome_flutter',
-      );
+      : super(
+          fontFamily: 'FontAwesomeRegular',
+          fontPackage: 'font_awesome_flutter',
+        );
 }
 
-/// [IconData] for a font awesome light icon from a code point. Only works if
-/// light icons (font awesome pro) have been installed.
-///
-/// Code points can be obtained from fontawesome.com
-class IconDataLight extends IconData {
+class IconDataLight extends FaIconData {
   const IconDataLight(super.codePoint)
-    : super(
-        fontFamily: 'FontAwesomeLight',
-        fontPackage: 'font_awesome_flutter',
-      );
+      : super(
+          fontFamily: 'FontAwesomeLight',
+          fontPackage: 'font_awesome_flutter',
+        );
 }
 
-/// [IconData] for a font awesome duotone icon from a code point. Only works if
-/// duotone icons (font awesome pro) have been installed.
-///
-/// Code points can be obtained from fontawesome.com. Each duotone icon consists
-/// of a primary [codePoint] and a [secondary].
-class IconDataDuotone extends IconData {
-  /// Secondary glyph of the duotone icon
-  ///
-  /// Due to tree-shaking restraints [secondary] cannot be the codepoint itself,
-  /// but has to be an [IconData] object.
-  final IconData? secondary;
+class IconDataDuotone extends FaIconData {
+  final FaIconData? secondary;
 
   const IconDataDuotone(super.codePoint, {this.secondary})
-    : super(
-        fontFamily: 'FontAwesomeDuotone',
-        fontPackage: 'font_awesome_flutter',
-      );
+      : super(
+          fontFamily: 'FontAwesomeDuotone',
+          fontPackage: 'font_awesome_flutter',
+        );
 }
 
-/// [IconData] for a font awesome thin icon from a code point. Only works if
-/// thin icons (font awesome pro, v6+) have been installed.
-///
-/// Code points can be obtained from fontawesome.com
-class IconDataThin extends IconData {
+class IconDataThin extends FaIconData {
   const IconDataThin(super.codePoint)
-    : super(fontFamily: 'FontAwesomeThin', fontPackage: 'font_awesome_flutter');
+      : super(
+          fontFamily: 'FontAwesomeThin',
+          fontPackage: 'font_awesome_flutter',
+        );
 }
 
-/// [IconData] for a font awesome sharp thin icon from a code point. Only works if
-/// thin icons (font awesome pro, v6+) have been installed.
-///
-/// Code points can be obtained from fontawesome.com
-class IconDataSharpThin extends IconData {
+class IconDataSharpThin extends FaIconData {
   const IconDataSharpThin(super.codePoint)
-    : super(
-        fontFamily: 'FontAwesomeSharpThin',
-        fontPackage: 'font_awesome_flutter',
-      );
+      : super(
+          fontFamily: 'FontAwesomeSharpThin',
+          fontPackage: 'font_awesome_flutter',
+        );
 }
 
-/// [IconData] for a font awesome sharp light icon from a code point. Only works if
-/// thin icons (font awesome pro, v6+) have been installed.
-///
-/// Code points can be obtained from fontawesome.com
-class IconDataSharpLight extends IconData {
+class IconDataSharpLight extends FaIconData {
   const IconDataSharpLight(super.codePoint)
-    : super(
-        fontFamily: 'FontAwesomeSharpLight',
-        fontPackage: 'font_awesome_flutter',
-      );
+      : super(
+          fontFamily: 'FontAwesomeSharpLight',
+          fontPackage: 'font_awesome_flutter',
+        );
 }
 
-/// [IconData] for a font awesome sharp regular icon from a code point. Only works if
-/// thin icons (font awesome pro, v6+) have been installed.
-///
-/// Code points can be obtained from fontawesome.com
-class IconDataSharpRegular extends IconData {
+class IconDataSharpRegular extends FaIconData {
   const IconDataSharpRegular(super.codePoint)
-    : super(
-        fontFamily: 'FontAwesomeSharpRegular',
-        fontPackage: 'font_awesome_flutter',
-      );
+      : super(
+          fontFamily: 'FontAwesomeSharpRegular',
+          fontPackage: 'font_awesome_flutter',
+        );
 }
 
-/// [IconData] for a font awesome sharp solid icon from a code point. Only works if
-/// thin icons (font awesome pro, v6+) have been installed.
-///
-/// Code points can be obtained from fontawesome.com
-class IconDataSharpSolid extends IconData {
+class IconDataSharpSolid extends FaIconData {
   const IconDataSharpSolid(super.codePoint)
-    : super(
-        fontFamily: 'FontAwesomeSharpSolid',
-        fontPackage: 'font_awesome_flutter',
-      );
+      : super(
+          fontFamily: 'FontAwesomeSharpSolid',
+          fontPackage: 'font_awesome_flutter',
+        );
 }
