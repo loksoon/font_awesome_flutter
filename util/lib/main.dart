@@ -329,7 +329,7 @@ to complete successfully.
     '/// requirements, the first occurrence is chosen.',
     '/// ',
     '/// Returns null if no icon matches.',
-    'FaIconData? getIconFromCss(String cssClasses) {',
+    'IconData? getIconFromCss(String cssClasses) {',
     '  const Map<String, String> cssStyles = {',
     "    'far': 'regular', 'fas': 'solid', 'fab': 'brands',",
     "    'fad': 'duotone', 'fal': 'light', 'fat': 'thin',",
@@ -353,7 +353,7 @@ to complete successfully.
     '/// Icon name to icon mapping for font awesome icons',
     '///',
     '/// Keys are in the following format: "style iconName"',
-    'const Map<String, FaIconData> faIconNameMapping = {',
+    'const Map<String, IconData> faIconNameMapping = {',
   ];
 
   String iconName;
@@ -449,9 +449,9 @@ String generateIconDocumentation(IconMetadata icon, String style) {
 String generateIconDefinition(IconMetadata icon, String style) {
   var iconName = normalizeIconName(icon.name, style, icon.styles.length);
 
-  String fontFamily = styleToFontFamily(style);
+  String iconDataSource = styleToDataSource(style);
 
-  return "static const FaIconData $iconName = FaIconData(IconData(0x${icon.unicode}, fontFamily: '$fontFamily', fontPackage: 'font_awesome_flutter'));";
+  return 'static const IconData $iconName = $iconDataSource(0x${icon.unicode});';
 }
 
 /// Generates aliases which link to the original icon. Used by
@@ -466,7 +466,7 @@ String generateIconAliases(IconMetadata icon, String style) {
     var aliasName = normalizeIconName(alias, style, icon.styles.length);
     lines.add('/// Alias $alias for icon [$iconName]');
     lines.add('@Deprecated(\'Use "$iconName" instead.\')');
-    lines.add('static const FaIconData $aliasName = $iconName;');
+    lines.add('static const IconData $aliasName = $iconName;');
   }
 
   return lines.join('\n');
@@ -488,9 +488,9 @@ String normalizeIconName(String iconName, String style, int styleCompetitors) {
   return iconName.camelCase;
 }
 
-/// Utility function to generate the correct FontFamily string for a [style]
-String styleToFontFamily(String style) {
-  return 'FontAwesome${style.split(' ').map((word) => word.isNotEmpty ? word[0].toUpperCase() + word.substring(1) : '').toList().join('')}';
+/// Utility function to generate the correct 'IconData' subclass for a [style]
+String styleToDataSource(String style) {
+  return 'IconData${style.split(' ').map((word) => word.isNotEmpty ? word[0].toUpperCase() + word.substring(1) : '').toList().join('')}';
 }
 
 /// Gets the default branch from github's metadata

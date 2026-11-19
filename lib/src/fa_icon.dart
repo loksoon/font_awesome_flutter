@@ -1,12 +1,29 @@
+// Copyright 2014 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/src/icon_data.dart';
 
+/// Creates an Icon Widget that works for non-material Icons, such as the
+/// Font Awesome Icons.
+///
+/// The default [Icon] Widget from the Material package assumes all Icons are
+/// square in size and wraps all Icons in a square SizedBox Widget. Icons from
+/// the FontAwesome package are often wider than they are tall, which causes
+/// alignment and cutoff issues.
+///
+/// This Widget does not wrap the icons in a fixed square box, which allows the
+/// icons to render based on their size.
+///
+/// This is basically a copy of flutter's original `Icon` widget, but with the
+/// `SizedBox` and `Center` widgets removed.
+///
+/// Original source code:
+/// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/icon.dart
 class FaIcon extends Icon {
-  final FaIconData? _icon;
-
   /// Creates an icon.
   const FaIcon(
-    FaIconData? icon, {
+    super.icon, {
     super.key,
     super.size,
     super.fill,
@@ -20,11 +37,7 @@ class FaIcon extends Icon {
     super.applyTextScaling,
     super.blendMode,
     super.fontWeight,
-  })  : _icon = icon,
-        super(null);
-
-  @override
-  IconData? get icon => _icon?.data;
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +66,7 @@ class FaIcon extends Icon {
 
     final List<Shadow>? iconShadows = shadows ?? iconTheme.shadows;
 
-    final IconData? icon = _icon?.data;
+    final IconData? icon = this.icon;
     if (icon == null) {
       return Semantics(
         label: semanticLabel,
@@ -71,6 +84,7 @@ class FaIcon extends Icon {
       foreground = Paint()
         ..blendMode = blendMode!
         ..color = iconColor;
+      // Cannot provide both a color and a foreground.
       iconColor = null;
     }
 
@@ -90,15 +104,15 @@ class FaIcon extends Icon {
       fontFamilyFallback: icon.fontFamilyFallback,
       shadows: iconShadows,
       height:
-          1.0, 
+          1.0, // Makes sure the font's body is vertically centered within the iconSize x iconSize square.
       leadingDistribution: TextLeadingDistribution.even,
       foreground: foreground,
     );
 
     Widget iconWidget = RichText(
-      overflow: TextOverflow.visible,
+      overflow: TextOverflow.visible, // Never clip.
       textDirection:
-          textDirection,
+          textDirection, // Since we already fetched it for the assert...
       text: TextSpan(
         text: String.fromCharCode(icon.codePoint),
         style: fontStyle,

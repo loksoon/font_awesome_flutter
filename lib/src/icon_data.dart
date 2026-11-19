@@ -1,122 +1,122 @@
 import 'package:flutter/widgets.dart';
 
-@immutable
-final class FaIconData {
-  final IconData data;
-  const FaIconData(this.data);
-  int get codePoint => data.codePoint;
-  String? get fontFamily => data.fontFamily;
-  String? get fontPackage => data.fontPackage;
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is FaIconData && other.data == data;
-  }
-
-  @override
-  int get hashCode => data.hashCode;
-
-  @override
-  String toString() => 'FaIconData(data: $data)';
-}
-
-@immutable
-final class FaDuotoneIconData {
-  /// The primary layer of the icon.
-  final IconData primary;
-
-  /// The secondary layer of the icon.
-  final IconData secondary;
-
-  /// Creates a duotone icon data.
-  const FaDuotoneIconData({required this.primary, required this.secondary});
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is FaDuotoneIconData &&
-        other.primary == primary &&
-        other.secondary == secondary;
-  }
-
-  @override
-  int get hashCode => Object.hash(primary, secondary);
-
-  @override
-  String toString() =>
-      'FaDuotoneIconData(primary: $primary, secondary: $secondary)';
-}
-
-base class _CustomFaIconData implements FaIconData {
-  @override
-  final int codePoint;
-
-  @override
-  final String fontFamily;
-
-  const _CustomFaIconData(this.codePoint, this.fontFamily);
-
-  @override
-  String get fontPackage => 'font_awesome_flutter';
-
-  @override
-  IconData get data => IconData(
-        codePoint,
-        fontFamily: fontFamily,
-        fontPackage: fontPackage,
+/// [IconData] for a font awesome brand icon from a code point
+///
+/// Code points can be obtained from fontawesome.com
+class IconDataBrands extends IconData {
+  const IconDataBrands(super.codePoint)
+    : super(
+        fontFamily: 'FontAwesomeBrands',
+        fontPackage: 'font_awesome_flutter',
       );
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is FaIconData && other.data == data;
-  }
-
-  @override
-  int get hashCode => data.hashCode;
-
-  @override
-  String toString() =>
-      '$runtimeType(codePoint: 0x${codePoint.toRadixString(16)})';
 }
 
-final class IconDataSolid extends _CustomFaIconData {
-  const IconDataSolid(int codePoint) : super(codePoint, 'FontAwesomeSolid');
+/// [IconData] for a font awesome solid icon from a code point
+///
+/// Code points can be obtained from fontawesome.com
+class IconDataSolid extends IconData {
+  const IconDataSolid(super.codePoint)
+    : super(
+        fontFamily: 'FontAwesomeSolid',
+        fontPackage: 'font_awesome_flutter',
+      );
 }
 
-final class IconDataBrands extends _CustomFaIconData {
-  const IconDataBrands(int codePoint) : super(codePoint, 'FontAwesomeBrands');
+/// [IconData] for a font awesome regular icon from a code point
+///
+/// Code points can be obtained from fontawesome.com
+class IconDataRegular extends IconData {
+  const IconDataRegular(super.codePoint)
+    : super(
+        fontFamily: 'FontAwesomeRegular',
+        fontPackage: 'font_awesome_flutter',
+      );
 }
 
-final class IconDataRegular extends _CustomFaIconData {
-  const IconDataRegular(int codePoint) : super(codePoint, 'FontAwesomeRegular');
+/// [IconData] for a font awesome light icon from a code point. Only works if
+/// light icons (font awesome pro) have been installed.
+///
+/// Code points can be obtained from fontawesome.com
+class IconDataLight extends IconData {
+  const IconDataLight(super.codePoint)
+    : super(
+        fontFamily: 'FontAwesomeLight',
+        fontPackage: 'font_awesome_flutter',
+      );
 }
 
-final class IconDataLight extends _CustomFaIconData {
-  const IconDataLight(int codePoint) : super(codePoint, 'FontAwesomeLight');
+/// [IconData] for a font awesome duotone icon from a code point. Only works if
+/// duotone icons (font awesome pro) have been installed.
+///
+/// Code points can be obtained from fontawesome.com. Each duotone icon consists
+/// of a primary [codePoint] and a [secondary].
+class IconDataDuotone extends IconData {
+  /// Secondary glyph of the duotone icon
+  ///
+  /// Due to tree-shaking restraints [secondary] cannot be the codepoint itself,
+  /// but has to be an [IconData] object.
+  final IconData? secondary;
+
+  const IconDataDuotone(super.codePoint, {this.secondary})
+    : super(
+        fontFamily: 'FontAwesomeDuotone',
+        fontPackage: 'font_awesome_flutter',
+      );
 }
 
-final class IconDataThin extends _CustomFaIconData {
-  const IconDataThin(int codePoint) : super(codePoint, 'FontAwesomeThin');
+/// [IconData] for a font awesome thin icon from a code point. Only works if
+/// thin icons (font awesome pro, v6+) have been installed.
+///
+/// Code points can be obtained from fontawesome.com
+class IconDataThin extends IconData {
+  const IconDataThin(super.codePoint)
+    : super(fontFamily: 'FontAwesomeThin', fontPackage: 'font_awesome_flutter');
 }
 
-final class IconDataSharpThin extends _CustomFaIconData {
-  const IconDataSharpThin(int codePoint)
-      : super(codePoint, 'FontAwesomeSharpThin');
+/// [IconData] for a font awesome sharp thin icon from a code point. Only works if
+/// thin icons (font awesome pro, v6+) have been installed.
+///
+/// Code points can be obtained from fontawesome.com
+class IconDataSharpThin extends IconData {
+  const IconDataSharpThin(super.codePoint)
+    : super(
+        fontFamily: 'FontAwesomeSharpThin',
+        fontPackage: 'font_awesome_flutter',
+      );
 }
 
-final class IconDataSharpLight extends _CustomFaIconData {
-  const IconDataSharpLight(int codePoint)
-      : super(codePoint, 'FontAwesomeSharpLight');
+/// [IconData] for a font awesome sharp light icon from a code point. Only works if
+/// thin icons (font awesome pro, v6+) have been installed.
+///
+/// Code points can be obtained from fontawesome.com
+class IconDataSharpLight extends IconData {
+  const IconDataSharpLight(super.codePoint)
+    : super(
+        fontFamily: 'FontAwesomeSharpLight',
+        fontPackage: 'font_awesome_flutter',
+      );
 }
 
-final class IconDataSharpRegular extends _CustomFaIconData {
-  const IconDataSharpRegular(int codePoint)
-      : super(codePoint, 'FontAwesomeSharpRegular');
+/// [IconData] for a font awesome sharp regular icon from a code point. Only works if
+/// thin icons (font awesome pro, v6+) have been installed.
+///
+/// Code points can be obtained from fontawesome.com
+class IconDataSharpRegular extends IconData {
+  const IconDataSharpRegular(super.codePoint)
+    : super(
+        fontFamily: 'FontAwesomeSharpRegular',
+        fontPackage: 'font_awesome_flutter',
+      );
 }
 
-final class IconDataSharpSolid extends _CustomFaIconData {
-  const IconDataSharpSolid(int codePoint)
-      : super(codePoint, 'FontAwesomeSharpSolid');
+/// [IconData] for a font awesome sharp solid icon from a code point. Only works if
+/// thin icons (font awesome pro, v6+) have been installed.
+///
+/// Code points can be obtained from fontawesome.com
+class IconDataSharpSolid extends IconData {
+  const IconDataSharpSolid(super.codePoint)
+    : super(
+        fontFamily: 'FontAwesomeSharpSolid',
+        fontPackage: 'font_awesome_flutter',
+      );
 }
