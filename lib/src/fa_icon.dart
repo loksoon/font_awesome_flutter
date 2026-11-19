@@ -72,10 +72,10 @@ class FaIcon extends StatelessWidget {
     final double iconOpacity = iconTheme.opacity ?? 1.0;
     Color? iconColor = color ?? iconTheme.color!;
     Paint? foreground;
-    if (iconOpacity != 1.0) {
+    if (iconColor != null && iconOpacity != 1.0) {
       iconColor = iconColor.withValues(alpha: iconColor.a * iconOpacity);
     }
-    if (blendMode != null) {
+    if (iconColor != null && blendMode != null) {
       foreground = Paint()
         ..blendMode = blendMode!
         ..color = iconColor;
