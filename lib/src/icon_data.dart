@@ -2,34 +2,44 @@ import 'package:flutter/widgets.dart';
 
 class FaIconData {
   const FaIconData(
-    int codePoint, {
-    String? fontFamily,
-    String? fontPackage,
-    bool matchTextDirection = false,
-  }) : data = IconData(
-          codePoint,
-          fontFamily: fontFamily,
-          fontPackage: fontPackage,
-          matchTextDirection: matchTextDirection,
-        );
+    this.codePoint, {
+    this.fontFamily,
+    this.fontPackage,
+    this.matchTextDirection = false,
+    this.fontFamilyFallback,
+  });
 
-  final IconData data;
+  final int codePoint;
+  final String? fontFamily;
+  final String? fontPackage;
+  final bool matchTextDirection;
+  final List<String>? fontFamilyFallback;
 
-  int get codePoint => data.codePoint;
-  String? get fontFamily => data.fontFamily;
-  String? get fontPackage => data.fontPackage;
-  List<String>? get fontFamilyFallback => data.fontFamilyFallback;
-  bool get matchTextDirection => data.matchTextDirection;
+  IconData get data => IconData(
+        codePoint,
+        fontFamily: fontFamily,
+        fontPackage: fontPackage,
+        matchTextDirection: matchTextDirection,
+        fontFamilyFallback: fontFamilyFallback,
+      );
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is FaIconData &&
           runtimeType == other.runtimeType &&
-          data == other.data;
+          codePoint == other.codePoint &&
+          fontFamily == other.fontFamily &&
+          fontPackage == other.fontPackage &&
+          matchTextDirection == other.matchTextDirection;
 
   @override
-  int get hashCode => data.hashCode;
+  int get hashCode => Object.hash(
+        codePoint,
+        fontFamily,
+        fontPackage,
+        matchTextDirection,
+      );
 }
 
 class IconDataBrands extends FaIconData {
