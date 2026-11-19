@@ -1,21 +1,38 @@
 import 'package:flutter/widgets.dart';
-class FaIcon extends Icon {
+
+import 'icon_data.dart';
+
+class FaIcon extends StatelessWidget {
   const FaIcon(
-    super.icon, {
+    this.icon, {
     super.key,
-    super.size,
-    super.fill,
-    super.weight,
-    super.grade,
-    super.opticalSize,
-    super.color,
-    super.shadows,
-    super.semanticLabel,
-    super.textDirection,
-    super.applyTextScaling,
-    super.blendMode,
-    super.fontWeight,
+    this.size,
+    this.fill,
+    this.weight,
+    this.grade,
+    this.opticalSize,
+    this.color,
+    this.shadows,
+    this.semanticLabel,
+    this.textDirection,
+    this.applyTextScaling,
+    this.blendMode,
+    this.fontWeight,
   });
+
+  final FaIconData? icon;
+  final double? size;
+  final double? fill;
+  final double? weight;
+  final double? grade;
+  final double? opticalSize;
+  final Color? color;
+  final List<Shadow>? shadows;
+  final String? semanticLabel;
+  final TextDirection? textDirection;
+  final bool? applyTextScaling;
+  final BlendMode? blendMode;
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
